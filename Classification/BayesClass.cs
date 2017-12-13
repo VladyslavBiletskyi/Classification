@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Classification
 {
+    [Serializable]
     internal class BayesClass
     {
         public string Name { get; set; }
