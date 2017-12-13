@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Classification
+﻿namespace Classification
 {
     class BayesClassifier
     {
         private BayesClassList bayesClassList = new BayesClassList();
-        
 
-        private double GetPossibility(string word, string className)
+        public BayesClassifier()
         {
-            var classInstance = bayesClassList.GetInstanceByName(className);
-            if (classInstance == null)
-            {
-                classInstance = bayesClassList.AddWordToClass(word, className);
-            }
+            bayesClassList = new BayesClassList();
+            bayesClassList.Load();
+        }
 
-            var documentsParameter = Math.Log((double)classInstance.DocumentsCount / bayesClassList.TotalDocumentsCount);
+        ~BayesClassifier()
+        {
+            bayesClassList.Save();
+        }
 
-            return 0;
+        public void Teach(string document, string className)
+        {
+            bayesClassList.AddDocumentToClass(document, className);
+        }
+
+        public string GetPossibleClass(string document)
+        {
+            return bayesClassList.GetPossibleClass(document);
         }
     }
 }
