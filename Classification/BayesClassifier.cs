@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,6 +10,8 @@ namespace Classification
     {
         public int TotalDocumentsCount { get { return bayesClassList.Select(x => x.DocumentsCount).Sum(); } }
         public int TotalWordsCount { get { return bayesClassList.Select(x => x.UniqueWords.Count).Sum(); } }
+
+        public IEnumerable<string> ClassNames { get { return bayesClassList.Select(x => x.Name); } }
 
         private const string FileName = "dumb.dat";
         private const int MinimalWordsLength = 2;

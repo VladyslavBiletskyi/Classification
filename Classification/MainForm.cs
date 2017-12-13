@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 
 namespace Classification
 {
@@ -10,6 +11,7 @@ namespace Classification
         {
             InitializeComponent();
             bayesClassifier = new BayesClassifier();
+            classBox.Items.AddRange(bayesClassifier.ClassNames.ToArray());
         }
 
         private void getClassButton_Click(object sender, System.EventArgs e)
@@ -29,6 +31,13 @@ namespace Classification
             var document = documentTextBox.Text;
             var className = (string) classBox.SelectedItem;
             bayesClassifier.AddDocumentToClass(document, className);
+            ReloadClassNames();
+        }
+
+        private void ReloadClassNames()
+        {
+            classBox.Items.Clear();
+            classBox.Items.AddRange(bayesClassifier.ClassNames.ToArray());
         }
     }
 }
